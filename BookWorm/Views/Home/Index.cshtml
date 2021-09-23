@@ -1,0 +1,60 @@
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+
+
+@model List<BookWorm.Models.VO.Book>
+
+@{
+    Func<dynamic, object> productTemplate =
+    @<div class="product-content">
+        <div class="product_top" onclick="@("window.location.href='" + @Url.Action("ProductDetail", "Shop", new { id = item.Id }) + "'")">
+            <img class="product_image" src="~/images/temp_photo.png" />
+            <span class="font-lg product-title">@item.Title</span>
+            <span class="font-md">@item.Author</span>
+            <span class="font-md price-tag">$@item.Price</span>
+        </div>
+
+        <div class="product_bottom">
+            <img class="icon-xl" src="~/images/add_to_wishlist_icon.png" />
+            <img class="icon-xl addToCartBtn" src="~/images/add_to_cart_icon.png" id="@item.Id" />
+        </div>
+    </div>;
+}
+
+<div class="index_page-wrapper">
+
+    <div class="row">
+        <img class="index_Logo" src="~/images/logo_02.png" />
+    </div>
+
+    <!-- Search -->
+    <div class="row">
+        <div class="index_search">
+            @await Html.PartialAsync("_SearchBar")
+        </div>
+    </div>
+
+    <!-- Best sellers -->
+    <div class="index_book-selection-box">
+        <h1>@localizer["Best sellers"]</h1>
+        <hr />
+        <div class="index_selected-books">
+            @foreach (BookWorm.Models.VO.Book book in ViewData["BestSellers"] as List<BookWorm.Models.VO.Book>)
+            {
+                @productTemplate(book)
+            }
+        </div>
+    </div>
+
+    <!-- New Additions -->
+    <div class="index_book-selection-box">
+        <h1>@localizer["New additions"]</h1>
+        <hr />
+        <div class="index_selected-books">
+            @foreach (BookWorm.Models.VO.Book book in ViewData["NewAdditions"] as List<BookWorm.Models.VO.Book>)
+            {
+                @productTemplate(book)
+            }
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,42 @@
+﻿@page
+@model BookWorm.Views.Shop.ProductDetailModel
+@{
+}
+
+<div class="pdetail_page-wrapper">
+    <div class="row">
+        <div class="pdetail_top-left col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12">
+            <img class="product-image-auto" src="~/images/temp_photo.png" />
+        </div>
+
+        <!-- Left -->
+        <div class="pdetail_col col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12">
+            <div class="pdetail_top-middle">
+                <span class="font-xl product-title">@ViewBag.Book.Title</span>
+                <span class="font-lg">@ViewBag.Book.Author</span>
+                <span class="font-md">@ViewBag.Book.Publisher</span>
+                <span class="font-md">@ViewBag.Book.NumberOfPages pages</span>
+                <span class="font-lg price-tag pdetail_price">$@ViewBag.Book.Price</span>
+            </div>
+        </div>
+
+        <!-- Right -->
+        <div class="pdetail_col col-xl-5 col-lg-5 col-md-12 col-sm-12 col-xs-12">
+            <div class="pdetail_top-right">
+                <span class="font-md">Quantity in stock: @ViewBag.Book.StockQuantity</span>
+                <div class="pdetail_top-right-content">
+                    @{await Html.RenderPartialAsync("_QuantityBox");}
+                    <button class="btn-light font-lg">Add to cart</button>
+                    <button class="btn-light font-lg">Add to wishlist</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom -->
+    <div class="row">
+        <div class="pdetail_bottom col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <p class="font-md">@ViewBag.Book.Description</p>
+        </div>
+    </div>
+</div>

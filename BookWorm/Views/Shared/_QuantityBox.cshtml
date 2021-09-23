@@ -1,0 +1,13 @@
+﻿@page
+@model BookWorm.Views.Shared._QuantityBoxModel
+@{
+}
+
+<!-- Quantity Box -->
+<div class="quantity-box">
+    <script type="text/javascript" src="~/js/_quantityBox.js"></script>
+
+    <button class="font-md btn-light quantity-box-button" id="quantity-box-substract" onclick="decrement()">-</button>
+    <input type="text" class="txt-input quantity-box-text" id="quantity-box-text" value="1" onchange="verifyValue()" />
+    <button class="font-md btn-light quantity-box-button" id="quantity-box-add" onclick="increment()">+</button>
+</div>

@@ -1,0 +1,124 @@
+﻿@page
+@model BookWorm.Views.Shop.CheckoutModel
+
+@{
+    Func<dynamic, object> bookTemplate =
+    @<div>
+        <div class="checkout_product-template">
+            <span class="product-title">@item.Title</span>
+            <span class="price-tag checkout_product-price">$@item.Price</span>
+        </div>
+    </div>;
+}
+
+<div class="checkout_page-wrapper">
+    <div class="row">
+        <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-xs-12">
+            <div class="checkout_content">
+                
+                <input type="hidden" id="startId" value="@ViewBag.LoadedId" />
+
+                <!-- Shipping Addresses -->
+                <div class="checkout_left-content">
+                    <h2>Shipping Information</h2>
+                    <hr />
+                    <select class="drop-menu-light checkout_drop-menu" id="dropDownShipping">
+                        @foreach (BookWorm.Models.VO.Address address in ViewBag.Addresses as List<BookWorm.Models.VO.Address>)
+                        {
+                            <option value="@address.Id">@address.ToString()</option>
+                        }
+                    </select>
+                    <div class="checkout_information-box">
+                        <span class="font-md" id="shippingLocalAddress">Please add an address.</span>
+                        <span class="font-md" id="shippingApartment"></span>
+                        <span class="font-md" id="shippingPostalCode"></span>
+                        <span class="font-md" id="shippingCity"></span>
+                        <span class="font-md" id="shippingRegion"></span>
+                        <span class="font-md" id="shippingCountry"></span>
+                        <div class="checkout_information-buttons">
+                            <button class="btn-dark" onclick="@("window.location.href='" + @Url.Action("", "Account") + "'")">Manage</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Billing Addresses -->
+                <div class="checkout_left-content">
+                    <h2>Billing Information</h2>
+                    <hr />
+                    <select class="drop-menu-light checkout_drop-menu" id="dropDownBilling">
+                        @foreach (BookWorm.Models.VO.Address address in ViewBag.Addresses as List<BookWorm.Models.VO.Address>)
+                        {
+                            <option value="@address.Id">@address.ToString()</option>
+                        }
+                    </select>
+                    <div class="checkout_information-box">
+                        <span class="font-md" id="billingLocalAddress">Please add an address.</span>
+                        <span class="font-md" id="billingApartment"></span>
+                        <span class="font-md" id="billingPostalCode"></span>
+                        <span class="font-md" id="billingCity"></span>
+                        <span class="font-md" id="billingRegion"></span>
+                        <span class="font-md" id="billingCountry"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-xl-7 col-lg-7 col-md-12 col-sm-12 col-xs-12">
+            <div class="checkout_content">
+                <h1>Confirm Order</h1>
+                <hr />
+
+                <div class="checkout_right-content">
+
+                    <!-- Books -->
+                    <div class="checkout_product-list">
+                        @foreach (BookWorm.Models.VO.Book book in ViewBag.Cart as List<BookWorm.Models.VO.Book>)
+                        {
+                            @bookTemplate(book)
+                        }
+                    </div>
+
+                    <!-- TOTAL $$$ -->
+                    <div class="checkout_bottom-right">
+                        <div class="checkout_details">
+                            <span class="font-md">Subtotal </span>
+                            <span class="font-md price-tag">$@ViewBag.Subtotal</span>
+                            <span class="font-md">Shipping and handling fees</span>
+                            <span class="font-md price-tag">$@ViewBag.ShippingAndHandling</span>
+                            <span class="font-md">Taxes</span>
+                            <span class="font-md price-tag" id="taxAmount">---</span>
+                            <span class="font-xl">Total</span>
+                            <span class="font-xl price-tag" id="grandTotal">---</span>
+
+                            <input type="hidden" id="taxPercentage" value="@ViewBag.LoadedTax" />
+                        </div>
+                    </div>
+
+                    <!-- PAYPAL -->
+                    <form class="paypal-form" action="https://www.sandbox.paypal.com/cgi-bin/websrc" onsubmit="return payementSubmit()" method="post">
+                        <input type="hidden" name="amount" id="subtotal" value="@ViewBag.Subtotal" />
+                        <input type="hidden" name="currency_code" value="CAD" />
+                        <input type="hidden" name="shipping" id="shipping" value="@ViewBag.Shipping" />
+                        <input type="hidden" name="handling" id="handling" value="@ViewBag.Handling" />
+                        <input type="hidden" name="tax" id="paypalTax" value="0.00" />
+                        <input type="hidden" name="return" value="PATH" />
+                        <input type="hidden" name="cancel_return" value="PATH" />
+                        <input type="hidden" name="notify_url" value="PATH" />
+                        <input type="hidden" name="cmd" value="_xclick" />
+                        <input type="hidden" name="business" value="dalapo@lacitec.on.ca" />
+                        <input type="hidden" name="item_name" value="Bookworm" />
+                        <input type="hidden" name="no_note" value="1" />
+                        <input type="hidden" name="lc" value="FR" />
+                        <input type="hidden" name="bn" value="WormBook" />
+                        <input type="hidden" name="custom" value="ID_ACHETEUR" />
+
+                        <button class="btn-dark checkout_btn" type="submit">Pay with Paypal</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="~/js/checkout.js"></script>
+</div>

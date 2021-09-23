@@ -1,0 +1,83 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model BookWorm.Models.VO.Address
+
+<div class="account_page-wrapper">
+    <div class="row account_page-content">
+
+        <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12">
+
+            <!-- Menu de gauche -->
+            <div class="account_left-menu">
+                <h1>Your account</h1>
+                <hr />
+                <div class="account_left-menu-top">
+                    <span class="font-md">@ViewBag.Account.FirstName</span>
+                    <button class="btn-dark">Edit</button>
+                    <span class="font-md">@ViewBag.Account.LastName</span>
+                    <button class="btn-dark">Edit</button>
+                    <span class="font-md">@ViewBag.Account.Email</span>
+                    <button class="btn-dark">Edit</button>
+                </div>
+                <hr />
+                <div class="account_left-menu-bottom">
+                    <button class="btn-dark">Change Password</button>
+                    <button class="btn-dark">Shipping Information</button>
+                    <button class="btn-dark">Payement Information</button>
+                    <button class="btn-dark">Preferences</button>
+                    <form asp-controller="Account" asp-action="Logout" method="get">
+                        <button class="btn-dark" type="submit">Log Out</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Menu de droite -->
+        <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-xs-12">
+            <div class="account_right-box account_shipping-info">
+                <h1>Shipping Information</h1>
+                <hr />
+
+                <div class="account_addresses-table">
+                    @foreach (BookWorm.Models.VO.Address address in ViewBag.Addresses as List<BookWorm.Models.VO.Address>)
+                    {
+                        <span class="account_table-cell">@address.ToString()</span>
+                        <button class="btn-dark">Edit</button>
+                        <img class="icon-sm" src="~/images/delete_icon.png" alt="Delete" />
+                    }
+                </div>
+
+                <h3>Add new address</h3>
+                <hr />
+
+                <form asp-controller="Account" asp-action="UserAccount" class="account_form" method="post">
+                    <label class="font-sm std-input-label">Country</label>
+                    <select class="drop-menu-light" id="dropDownCountry" asp-for="CountryName">
+                        @foreach (BookWorm.Models.VO.Country country in ViewBag.Countries as List<BookWorm.Models.VO.Country>)
+                        {
+                            <option value="@country.Name">@country.Name</option>
+                        }
+                    </select>
+                    <label class="font-sm std-input-label">Province</label>
+                    <select class="drop-menu-light" id="dropDownRegion" asp-for="RegionName">
+                        @foreach (BookWorm.Models.VO.Region region in ViewBag.Regions as List<BookWorm.Models.VO.Region>)
+                        {
+                            <option value="@region.Name">@region.Name</option>
+                        }
+                    </select>
+                    <label class="font-sm std-input-label">Address</label>
+                    <input class="txt-input" type="text" asp-for="LocalAddress" />
+                    <label class="font-sm std-input-label">Apartment</label>
+                    <input class="txt-input" type="number" asp-for="Apartment" />
+                    <label class="font-sm std-input-label">City</label>
+                    <input class="txt-input" type="text" asp-for="City" />
+                    <label class="font-sm std-input-label">Postal Code</label>
+                    <input class="txt-input" type="text" asp-for="PostalCode" />
+                    <button class="btn-dark account_form_button" type="submit" value="UserAccount">Create</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="~/js/userAccount.js"></script>
+</div>

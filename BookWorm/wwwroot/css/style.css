@@ -1,0 +1,271 @@
+﻿/* ========================================================================================
+** VARIABLES 
+** ======================================================================================*/
+
+:root {
+    /* ===== FONTS ======*/
+    --font: "Trebuchet MS", Helvetica, sans-serif;
+    /* ===== Colors ===== */
+    --gray: #868784;
+    --light-gray: #DCDCDC;
+    --dark-gray: #646562;
+    --purple: #6500b9;
+    --price-tag: red; /*black;*/
+    --heading-color: white;
+    /* BUTTON COLORS*/
+    --btn-light: white;
+    --btn-dark: #000000;
+}
+
+/* ========================================================================================
+** BUTTONS
+** ======================================================================================*/
+
+.btn-light, .btn-dark {
+    padding: 3px;
+    border-radius: 5px;
+    font-family: var(--font);
+}
+
+    .btn-light:focus, .btn-dark:focus {
+        outline: none;
+    }
+
+.btn-light {
+    background-color: white;
+    border: solid 1px black;
+    color: black;
+}
+
+    .btn-light:hover, .btn-light:focus {
+        background-color: var(--light-gray);
+        border-color: var(--purple);
+        color: var(--purple);
+    }
+
+.btn-dark {
+    background-color: var(--dark-gray);
+    border: solid 1px var(--dark-gray);
+    color: white;
+}
+
+    .btn-dark:hover, .btn-dark:focus {
+        background-color: white;
+        color: var(--purple);
+        border-color: var(--purple);
+    }
+
+.btn-icon-light {
+    background-color: white;
+    border:none;
+    border-radius: 5px;
+    display: block;
+    text-align: center;
+    padding: 5px 0px 0px 0px;
+    margin: auto 0px;
+    width: 70px;
+    font-family: var(--font);
+}
+    .btn-icon-light:hover, .btn-icon-light:focus {
+        background-color: rgba(0,0,0,0.1);
+        color: var(--purple);
+        outline: none;
+    }
+
+/* ========================================================================================
+** Inputs
+** ======================================================================================*/
+
+.txt-input {
+    border: solid 1px black;
+    border-radius: 5px;
+    font-family: var(--font);
+    width: 100%;
+}
+
+    .txt-input:focus {
+        color: var(--purple);
+        border-color: var(--purple);
+        -webkit-box-shadow: 0px 0px 25px -8px var(--purple);
+        box-shadow: 0px 0px 25px -8px var(--purple);
+        outline: none;
+    }
+
+.drop-menu-light, .drop-menu-dark {
+    border-radius: 5px;
+    font-family: var(--font);
+    cursor: pointer;
+}
+    .drop-menu-light:focus, .drop-menu-dark:focus {
+        outline: none;
+    }
+
+.drop-menu-light {
+    background-color: white;
+    border: solid 1px black;
+}
+
+    .drop-menu-light:focus {
+        border-color: var(--purple);
+    }
+
+.drop-menu-dark {
+    background-color: var(--dark-gray);
+    color:white;
+    border: none;
+}
+    .drop-menu-dark:focus {
+        background-color: var(--light-gray);
+        color: black;
+    }
+
+/* ========================================================================================
+** FONTS
+** ======================================================================================*/
+
+.font-xs, .font-sm, .font-md, .font-lg, .font-xl, h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font);
+}
+
+.font-xs {
+    font-size: 12px;
+}
+
+.font-sm {
+    font-size: 14px;
+}
+
+.font-md {
+    font-size: 16px;
+}
+
+.font-lg {
+    font-size: 18px;
+}
+
+.font-xl {
+    font-size: 20px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--heading-color);
+}
+
+.product-title {
+    color: var(--purple);
+}
+
+.price-tag {
+    color: var(--price-tag);
+}
+
+.clickable-txt-b {
+    color: blue;
+}
+
+.clickable-txt {
+    color: black;
+}
+    .clickable-txt:hover, .clickable-txt-b:hover {
+        color: var(--purple);
+        cursor: pointer;
+        text-decoration: underline;
+    }
+
+/* ========================================================================================
+** ICONS && IMAGES
+** ======================================================================================*/
+
+.icon-xs, .icon-sm, .icon-md, .icon-lg {
+    margin: auto 3px;
+}
+
+.icon-xs {
+    width: 18px;
+    height: 18px;
+}
+
+.icon-sm {
+    width: 21px;
+    height: 21px;
+}
+
+.icon-md {
+    width: 27px;
+    height: 27px;
+}
+
+.icon-lg {
+    width: 35px;
+    height: 35px;
+}
+
+.icon-xl {
+    width: 40px;
+    height: 40px;
+}
+
+.product-image-lg {
+    width: 150px;
+    height: 150px;
+}
+
+.product-image-auto {
+    max-width: 100%;
+    height: auto;
+    margin: auto 0;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+/* ========================================================================================
+** Elements
+** ======================================================================================*/
+
+.std-page {
+    background-color: var(--purple);
+    padding: 30px 0px;
+    display: flex;
+    justify-content: center;
+}
+
+.std-page-content {
+    text-align: center;
+    width: 30%;
+    margin: 0px;
+}
+
+.std-form {
+    text-align: left;
+    background-color: white;
+    border-radius: 5px;
+    padding: 50px;
+}
+
+.std-input-label {
+    margin: 8px 0px 0px 0px;
+    font-weight: bold;
+}
+
+hr {
+    border: solid 1px black;
+    margin-top: 0px;
+    width: 100%;
+}
+
+body {
+    background-color: var(--light-gray);
+}
+
+.nav__top, footer {
+    background-color: var(--dark-gray);
+}
+
+.form-alert {
+    color: red;
+    display: none;
+    flex-flow: column;
+    visibility: hidden;
+}

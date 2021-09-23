@@ -1,0 +1,63 @@
+﻿@model BookWorm.Views.Shop.ShopModel
+
+@{
+    Func<dynamic, object> productTemplate =
+    @<div class="product-content">
+        <div class="product_top" onclick="@("window.location.href='" + @Url.Action("ProductDetail", "Shop", new { id = item.Id }) + "'")">
+            <img class="product_image" src="~/images/temp_photo.png" />
+            <span class="font-lg product-title">@item.Title</span>
+            <span class="font-md">@item.Author</span>
+            <span class="font-md price-tag">$@item.Price</span>
+        </div>
+
+        <div class="product_bottom">
+            <img class="icon-xl" src="~/images/add_to_wishlist_icon.png" />
+            <img class="icon-xl addToCartBtn" src="~/images/add_to_cart_icon.png" id="@item.Id"/>
+        </div>
+    </div>;
+
+    Func<dynamic, object> genreTemplate =
+    @<div>
+        <input type="checkbox" />
+        <span class="font-sm">@item.Name</span>
+    </div>;
+}
+
+<div class="shop_page-wrapper">
+
+    <!-- Search -->
+    <div class="row">
+        <div class="col-12">
+            <div class="shop_search ">
+                @{await Html.RenderPartialAsync("_SearchBar");}
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <!-- Left -->
+        <div class="shop_left-content col-xl-2 col-lg-3 col-md-12 col-sm-12 col-xs-12">
+
+            <div class="shop_categories">
+                <h3>Genres</h3>
+                <hr />
+                @foreach (BookWorm.Models.VO.Genre genre in ViewData["Genres"] as List<BookWorm.Models.VO.Genre>)
+                {
+                    @genreTemplate(genre)
+                }
+            </div>
+        </div>
+
+        <!-- Right -->
+        <div class="shop_right-content col-xl-10 col-lg-9 col-md-12 col-sm-12 col-xs-12">
+            @foreach (BookWorm.Models.VO.Book book in ViewData["Books"] as List<BookWorm.Models.VO.Book>)
+            {
+                <div class="shop_product">
+                    @productTemplate(book)
+                </div>
+            }
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,42 @@
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model BookWorm.Models.VO.Account
+
+<div class="std-page">
+    <div class="std-page-content">
+        <h1 class="login__title">@localizer["Login Title"]</h1>
+
+        <div class="std-form login__form">
+            <form asp-controller="Account" asp-action="Login" onsubmit="return validateLogin()" method="post">
+                <b class="font-lg">@localizer["Sign in"]</b>
+                <hr />
+
+                <!-- Username -->
+                <label class="font-sm login__label">@localizer["Username"]</label>
+                <input class="txt-input login__txt" type="text" id="username" asp-for="Username" />
+                <span class="font-sm form-alert" id="usernameAlert">@localizer["Alert Username"]</span>
+
+                <!-- Password -->
+                <label class="font-sm login__label">@localizer["Password"]</label>
+                <input class="txt-input login__txt" type="password" id="password" />
+                <span class="font-sm form-alert" id="passwordAlert">@localizer["Alert Password"]</span>
+
+                <button class="btn-light login__sign-in-btn" type="submit" value="Login">@localizer["Sign in btn"]</button>
+                <input type="hidden" id="encrypted" asp-for="Password"/>
+            </form>
+
+            <!-- Register -->
+            <div>
+                <hr />
+                <span class="clickable-txt-b font-sm login__forgot-password">@localizer["Forgot Password"]</span><br />
+                <b class="font-lg login__register-title">@localizer["Not a member"]</b>
+                <hr />
+                <button class="btn-light login__register-btn" onclick="@("window.location.href='" + @Url.Action("Register", "Account") + "'")">@localizer["Create Account"]</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

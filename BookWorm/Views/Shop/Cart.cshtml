@@ -1,0 +1,49 @@
+﻿@page
+@model BookWorm.Views.Shop.CartModel
+
+@{
+    Func<dynamic, object> bookTemplate =
+    @<div class="cart__template">
+        <div class="template__top">
+            <img class="icon-sm cart__pn-detail" src="~/images/delete_icon.png" />
+        </div>
+        <div class="template__bottom">
+            <div>
+                <img class="product-image-lg" src="~/images/temp_photo.png" />
+            </div>
+            <div class="template__bottom-right">
+                <div class="template__bottom-right-top">
+                    <span class="product-title font-lg cart__pd-detail">@item.Title</span>
+                    <span class="font-md cart__pd-detail">@item.Author</span>
+                    <span class="font-sm cart__pd-detail">@item.Publisher</span>
+                    <div class="template__bottom-right-bottom">
+                        <span class="font-md cart__pn-detail price-tag">$@item.Price</span>
+                        <span class="font-md cart__pn-detail">Quantity: 1</span>
+                    </div>
+                </div>    
+            </div>
+        </div>
+    </div>;
+}
+
+<div class="cart-page">
+    <div class="cart__content row ">
+
+
+        <!-- Cart Items -->
+        <div class="cart__list col-xl-10 col-lg-10 col-md-12 col-sm-12 col-xs-12">
+            @foreach (BookWorm.Models.VO.Book book in ViewBag.Cart as List<BookWorm.Models.VO.Book>)
+            {
+                @bookTemplate(book)
+            }
+        </div>
+
+
+        <!-- To Checkout -->
+        <div class="cart__checkout col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12">
+            <span class="font-md">Subtotal:</span>
+            <span class="font-lg price-tag">$@ViewBag.Subtotal</span>
+            <button class="btn-light" onclick="@("window.location.href='" + @Url.Action("Checkout", "Shop") + "'")" disabled="@ViewBag.DisableCheckout">Proceed to checkout</button>
+        </div>
+    </div>
+</div>

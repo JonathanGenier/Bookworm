@@ -1,0 +1,92 @@
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+@inject Microsoft.Extensions.Options.IOptions<Microsoft.AspNetCore.Builder.RequestLocalizationOptions> locOptions
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@model BookWorm.Models.VO.Account
+
+@{
+    var cultureList = locOptions.Value.SupportedUICultures.Select(
+        x => new SelectListItem
+        {
+            Value = x.Name,
+            Text = localizer.GetString(x.Name)
+        }).ToList();
+}
+
+<div class="std-page">
+    <div class="std-page-content">
+        <h1 class="register__title">@localizer["Create Account"]</h1>
+
+        <div class="std-form">
+            <form asp-controller="Account" asp-action="Register" onsubmit="return validateNewAccount()" method="post">
+
+                <div>
+                    <b class=" font-lg">@localizer["Account Information"]</b>
+                    <hr />
+                    <!-- Nom d'utilisateur -->
+                    <label class="font-sm std-input-label">@localizer["Username"]</label>
+                    <input class="txt-input" type="text" id="username" asp-for="Username" />
+                    <span class="font-sm form-alert" id="usernameAlert">@localizer["Alert Username"]</span>
+
+                    <!-- Mot de passe -->
+                    <label class="font-sm std-input-label">@localizer["Password"]</label>
+                    <input class="txt-input" type="password" id="password" onfocus="showAlert(passwordAlert)" onblur="hideAlert(passwordAlert)" oninput="validatePassword()" />
+                    <label class="font-sm std-input-label">@localizer["Confirm Password"]</label>
+                    <input class="txt-input" type="password" id="cfrmPassword" oninput="confirmPassword()" disabled="disabled" />
+                    <div class="form-alert" id="passwordAlert">
+                        <span class="font-sm" id="phCharacters">@localizer["Alert Characters"]</span>
+                        <span class="font-sm" id="phUppercase">@localizer["Alert Uppercase"]</span>
+                        <span class="font-sm" id="phNumber">@localizer["Alert Number"]</span>
+                        <span class="font-sm" id="phSymbol">@localizer["Alert Symbol"]</span>
+                    </div>
+                    <span class="font-sm form-alert" id="cfrmPasswordAlert">@localizer["Alert Confirmation"]</span>
+                </div>
+
+                <div class="register__personal-information">
+                    <b class="font-lg">@localizer["Personal Information"]</b>
+                    <hr />
+
+                    <!-- Prenom -->
+                    <label class="font-sm std-input-label">@localizer["First Name"]</label>
+                    <input class="txt-input" type="text" id="firstName" asp-for="FirstName" />
+                    <span class="font-sm form-alert" id="firstNameAlert">@localizer["Alert First Name"]</span>
+
+                    <!-- Nom -->
+                    <label class="font-sm std-input-label">@localizer["Last Name"]</label>
+                    <input class="txt-input" type="text" id="lastName" asp-for="LastName" />
+                    <span class="font-sm form-alert" id="lastNameAlert">@localizer["Alert Last Name"]</span>
+
+                    <!-- E-mail -->
+                    <label class="font-sm std-input-label">@localizer["Email"]</label>
+                    <input class="txt-input" type="email" id="email" asp-for="Email" />
+                    <span class="font-sm form-alert" id="emailAlert">@localizer["Alert Email"]</span>
+                </div>
+
+                <!-- Langage -->
+                <div class="register__preferences">
+                    <b class="font-sm">@localizer["Preferred Language"]</b>
+                    <div class="register__tooltip">
+                        <img class="icon-xs" src="~/images/question_icon.png" />
+                        <span class="register__tooltip-text font-sm">@localizer["Language Tooltip"]</span>
+                    </div>
+                    <br />
+                    <select class="drop-menu-light" asp-items="@cultureList"></select>
+                </div>
+
+                <!-- Polices -->
+                <div class="register__agreements">
+                    <input type="checkbox" id="termsOfService" />
+                    <span class="font-sm">@localizer["Agreement"]</span>
+                    <span class="font-sm clickable-txt-b">@localizer["Terms Of Service"]</span><br />
+                    <input type="checkbox" id="privacyPolicy" />
+                    <span class="font-sm">@localizer["Agreement"]</span>
+                    <span class="font-sm clickable-txt-b">@localizer["Privacy Policy"]</span><br />
+                    <span class="font-sm form-alert" id="checkboxAlert">@localizer["Alert Policies"]</span>
+                </div>
+
+                <button class="btn-light register__register-btn" type="submit" value="Register">@localizer["Register"]</button>
+                <input type="hidden" id="encrypted" asp-for="Password" />
+            </form>
+        </div>
+    </div>
+</div>
